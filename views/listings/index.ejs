@@ -1,5 +1,17 @@
 <% layout('layouts/boilerplate') %> 
 
+<% if (allListings.length === 0) { %>
+  <div class="alert alert-warning mt-4 ms-2" role="alert">
+    <% if (searchLocation) { %>
+      No listings found for "<%= searchLocation %>". Try another location.
+    <% } else { %>
+      No listings available. Try selecting another category or search.
+    <% } %>
+  </div>
+<% } %>
+
+
+
 <style>
   #filters {
     display: flex;
