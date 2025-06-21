@@ -1,5 +1,5 @@
-if(process.env.NODE_ENV != "production") {
-  require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
 
 const express = require("express");
@@ -15,31 +15,30 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
+// Routers
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
+// DB Connection
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-
 main()
-  .then(() => {
-    console.log("connected to DB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  .then(() => console.log("Connected to DB"))
+  .catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
 
+// View Engine + Middleware
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.engine('ejs', ejsMate);
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "public"))); // Static assets (e.g., map.js)
 
+// Session Setup
 const sessionOptions = {
   secret: "mysupersecretcode",
   resave: false,
@@ -51,20 +50,17 @@ const sessionOptions = {
   }
 };
 
-app.get("/", (req, res) => {
-  res.send("Hi, I am root");
-});
-
 app.use(session(sessionOptions));
 app.use(flash());
 
+// Passport Auth Setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Flash Middleware
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -72,20 +68,28 @@ app.use((req, res, next) => {
   next();
 });
 
+// Routes
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-app.use((req, res, next) => {  // For all undefined routes
+// Default Route
+app.get("/", (req, res) => {
+  res.send("Hi, I am root");
+});
+
+// 404 Handler
+app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found!"));
 });
 
-app.use((err, req, res, next) => { // error handler middleware
-  let {statusCode = 500, message = "Something went wrong!"} = err;
-  res.status(statusCode).render("error.ejs", {message});
-  // res.status(statusCode).send(message);
+// Error Handler
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message = "Something went wrong!" } = err;
+  res.status(statusCode).render("error.ejs", { message });
 });
 
+// Server Start
 app.listen(8080, () => {
-  console.log("server is listening to port 8080");
+  console.log("Server is listening on port 8080");
 });
