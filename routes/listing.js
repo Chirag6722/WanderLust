@@ -10,8 +10,20 @@ const {storage} = require("../cloudConfig.js");
 const upload = multer({ storage });
 
 router.route("/")
-.get(wrapAsync(listingController.index))
-.post(isLoggedIn, upload.single('listing[image]'), validatelisting, wrapAsync(listingController.createListing));
+  .get(wrapAsync(async (req, res) => {
+    const { category } = req.query;
+    let listings;
+
+    if (category) {
+      listings = await Listing.find({ category });
+    } else {
+      listings = await Listing.find({});
+    }
+
+    res.render("listings/index.ejs", { allListings: listings, selectedCategory: category || "" });
+  }))
+  .post(isLoggedIn, upload.single('listing[image]'), validatelisting, wrapAsync(listingController.createListing));
+
 
 //New Route
 router.get("/new", isLoggedIn, listingController.renderNewForm);

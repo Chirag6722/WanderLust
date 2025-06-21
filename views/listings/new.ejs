@@ -6,26 +6,20 @@
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input name="listing[title]" placeholder="Add a catchy title" type="text" class="form-control" required/>
-        <div class="valid-feedback">Tittle looks good!</div>
+        <div class="valid-feedback">Title looks good!</div>
       </div>
+
       <div class="mb-3">
         <label for="description" class="form-label">Description</label>
-        <textarea
-          name="listing[description]"
-          class="form-control"
-          required
-        ></textarea>
+        <textarea name="listing[description]" class="form-control" required></textarea>
         <div class="invalid-feedback">Please enter a short description</div>
       </div>
+
       <div class="mb-3">
         <label for="image" class="form-label">Upload Listing Image</label>
-        <input
-          name="listing[image]"
-          type="file"
-          class="form-control"
-          required
-        />
+        <input name="listing[image]" type="file" class="form-control" required />
       </div>
+
       <div class="row">
         <div class="mb-3 col-md-4">
           <label for="price" class="form-label">Price</label>
@@ -38,19 +32,32 @@
           <div class="invalid-feedback">Country name should be valid</div>
         </div>
       </div>
+
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
-        <input
-          name="listing[location]"
-          placeholder="Jaipur,Rajasthan"
-          type="text"
-          class="form-control"
-          required
-        />
+        <input name="listing[location]" placeholder="Jaipur, Rajasthan" type="text" class="form-control" required/>
         <div class="invalid-feedback">Location should be valid</div>
       </div>
+
+      <!-- ✅ Category dropdown -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select name="listing[category]" class="form-select" required>
+          <option value="">Select category</option>
+          <option value="trending">Trending</option>
+          <option value="rooms">Rooms</option>
+          <option value="iconic">Iconic Cities</option>
+          <option value="mountains">Mountains</option>
+          <option value="castles">Castles</option>
+          <option value="pools">Amazing Pools</option>
+          <option value="camping">Camping</option>
+          <option value="farms">Farms</option>
+          <option value="arctic">Arctic</option>
+        </select>
+        <div class="invalid-feedback">Please select a category</div>
+      </div>
+
       <button class="btn btn-dark add-btn mb-5 mt-4">Add</button>
     </form>
   </div>
 </div>
-
