@@ -93,8 +93,9 @@ app.use("/", userRouter);
 
 // Default Route
 app.get("/", (req, res) => {
-  res.send("Hi, I am root");
+  res.redirect("/listings"); // or res.render("home.ejs")
 });
+
 
 // 404 Handler
 app.use((req, res, next) => {
