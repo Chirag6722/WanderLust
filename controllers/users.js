@@ -27,11 +27,13 @@ module.exports.renderLoginForm = (req, res) => {
     res.render("users/login.ejs");
 };
 
-module.exports.login =  async (req, res) => {
-    req.flash("success","Welcome back to Airbnb!");
-    let redirectUrl = res.locals.redirectUrl || "/listings";
-    res.redirect(redirectUrl);
+module.exports.login = (req, res) => {
+  const redirectUrl = res.locals.redirectUrl || "/listings";
+  delete req.session.redirectUrl; // cleanup
+  req.flash("success", "Welcome back to Airbnb!");
+  res.redirect(redirectUrl);
 };
+
 
 module.exports.logout = (req, res, next) => {
     req.logOut((err) => {
