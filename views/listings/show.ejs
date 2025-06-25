@@ -40,10 +40,10 @@
 
   <!-- Edit/Delete Buttons -->
   <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
-    <div class="row">
-      <div class="col-md-6 offset-md-3 d-flex justify-content-between mb-4">
-        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
-        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+        <div class="row">
+      <div class="col-md-6 offset-md-3 d-flex gap-2 mb-4">
+        <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit</a>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
           <button class="btn btn-dark">Delete</button>
         </form>
       </div>
