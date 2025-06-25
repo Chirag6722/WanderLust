@@ -1,17 +1,22 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-md bg-body-light border-bottom">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"><i class="fa-brands fa-airbnb"></i></a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
 
-      <div class="navbar-nav ms-auto">
-              <form 
-          class="airbnb-search-form d-flex align-items-center shadow-sm rounded-pill px-3 py-2 me-3" 
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav w-100 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+        
+        <!-- Left: Explore -->
+        <div class="d-flex flex-column flex-md-row align-items-md-center mb-2 mb-md-0">
+          <a class="nav-link" href="/listings">Explore</a>
+        </div>
+
+        <!-- Center: Search Form -->
+        <form 
+          class="airbnb-search-form d-flex align-items-center shadow-sm rounded-pill px-3 py-2 mb-2 mb-md-0" 
           role="search" 
           method="GET" 
           action="/listings"
@@ -29,17 +34,17 @@
           </button>
         </form>
 
-      </div>
+        <!-- Right: Auth Links -->
+        <div class="d-flex flex-column flex-md-row align-items-md-center gap-1">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+          <% if (!currUser) { %>
+            <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+            <a class="nav-link" href="/login"><b>Log in</b></a>
+          <% } else { %>
+            <a class="nav-link" href="/logout"><b>Log out</b></a>
+          <% } %>
+        </div>
 
-       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Airbnb your home</a>
-        <% if(!currUser) { %>
-        <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-        <a class="nav-link" href="/login"><b>Log in</b></a>
-        <% } %>
-        <% if(currUser) { %>
-        <a class="nav-link" href="/logout"><b>Log out</b></a>
-        <% } %>
       </div>
     </div>
   </div>

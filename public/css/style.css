@@ -141,3 +141,60 @@ body{
 .airbnb-search-form button:hover {
   background-color: #e03150;
 }
+
+
+/* General body layout */
+body {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Main content wrapper (in layout.ejs or boilerplate) */
+.container {
+  flex: 1;
+  padding-top: 0rem;
+}
+
+/* Navbar layout */
+.navbar {
+  background-color: white;
+  position: static !important;  /* ✅ Ensure natural flow */
+  z-index: auto;                /* ✅ Let it sit inline */
+}
+
+/* Ensure navbar is in normal flow */
+.navbar {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive fix to prevent overlap */
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    background-color: #fff;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-nav {
+    flex-direction: column !important;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .airbnb-search-form {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+  .airbnb-search-form input {
+    width: 100% !important;
+  }
+
+  #page-content {
+    margin-top: 1rem; /* ✅ Gives space under collapsed navbar */
+  }
+}
