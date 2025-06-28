@@ -24,7 +24,7 @@
       <% if (listing.image && listing.image.url) { %>
         <div class="mb-3">
           <label>Current Listing Image</label><br>
-          <img src="<%= listing.image.url %>" alt="listing image" style="max-width: 250px; border-radius: 8px;">
+          <img src="<%= listing.image.url %>" alt="listing image" style="max-width: 250px; height: 150px; object-fit: cover; border-radius: 8px;">
         </div>
       <% } %>
 
@@ -61,7 +61,7 @@
         <label for="category" class="form-label">Category</label>
         <select name="listing[category]" class="form-select" required>
           <option value="">Select category</option>
-          <% const categories = ["trending", "rooms", "iconic", "mountains", "castles", "pools", "camping", "farms", "arctic"]; %>
+          <% const categories = ["trending", "rooms", "iconic", "mountains", "castles", "pools", "camping", "farms", "arctic", "domes", "boats"]; %>
           <% for (let cat of categories) { %>
             <option value="<%= cat %>" <%= listing.category === cat ? "selected" : "" %>><%= cat.charAt(0).toUpperCase() + cat.slice(1) %></option>
           <% } %>

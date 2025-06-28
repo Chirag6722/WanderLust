@@ -23,7 +23,6 @@ const userRouter = require("./routes/user.js");
 
 // DB Connection
 const dbUrl = process.env.ATLASDB_URL;
-
 main()
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
@@ -43,14 +42,14 @@ app.use(express.static(path.join(__dirname, "public"))); // Static assets (e.g.,
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret: process.env.SECRET,
+    secret: process.env.SECRET
   },
-  touchAfter: 24 * 3600,
+  touchAfter: 24 * 3600
 });
 
 store.on("error", () => {
-  console.log("ERROR on MONGO SESSION STORE", err);
-})
+  console.log("ERROR in MONGO SESSION STORE", err);
+});
 
 // Session Setup
 const sessionOptions = {
@@ -65,8 +64,6 @@ const sessionOptions = {
   }
 };
 
-
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -74,7 +71,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -95,7 +91,6 @@ app.use("/", userRouter);
 app.get("/", (req, res) => {
   res.redirect("/listings"); // or res.render("home.ejs")
 });
-
 
 // 404 Handler
 app.use((req, res, next) => {

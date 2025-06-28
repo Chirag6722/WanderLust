@@ -1,111 +1,91 @@
 <% layout("/layouts/boilerplate") -%>
-
-<div class="container mt-4">
+<div class="row mt-3">
   <!-- Title -->
- <div class="row">
-  <div class="col-md-6 offset-md-3">
-    <h3 class="text-start"><%= listing.title %></h3>
+  <div class="col-8 offset-3">
+    <h3><%= listing.title %></h3>
   </div>
-</div>
-
-
-
   <!-- Listing Card -->
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <div class="card show-card listing-card">
-        <img src="<%= listing.image.url %>" alt="listing_image"
-             class="card-img-top"
-             style="width: 100%; height: auto; object-fit: contain; max-height: 400px;">
-        <div class="card-body">
-          <p class="card-text"><i>Owned by <%= listing.owner.username %></i></p>
-          <p class="card-text"><%= listing.description %></p> 
-          <p class="card-text">&#8377; <%= listing.price.toLocaleString("en-IN") %> / night</p> 
-          <p class="card-text"><%= listing.location %></p> 
-          <p class="card-text"><%= listing.country %></p>
-        </div>
-      </div>
+  <div class="card col-6 offset-3 show-card listing-card">
+    <div class="img-wrapper">
+     <img src="<%= listing.image.url %>" class="img-fluid shw-img" alt="listing_image">
+    </div>
+    <div class="card-body">
+      <p class="card-text"><i>Owned by <%= listing.owner.username %></i></p>
+      <p class="card-text"><%= listing.description %></p> 
+      <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %> / night</p> 
+      <p class="card-text"><%= listing.location %></p> 
+      <p class="card-text"><%= listing.country %></p>
     </div>
   </div>
 
-  <!-- Map Heading -->
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    <div class="d-flex align-items-center mb-1">
-      <i class="fa-solid fa-location-dot me-2" style="color: #fe424d; font-size: 1.2rem;"></i>
-      <h5 class="mb-0">Where you'll be staying</h5>
-    </div>
+  <!-- Heading above map with Bootstrap icon -->
+  <div class="col-6 offset-3 mt-4">
+    <h4>
+      <i class="bi bi-geo-alt-fill text-danger"></i> <!-- Bootstrap geo icon -->
+      <strong>Where you'll be staying</strong>
+    </h4>
   </div>
-</div>
 
   <!-- Map Container -->
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <div id="map" class="my-4 border border-dark rounded"
-           style="height: 300px; width: 80%;"
-           data-location="<%= listing.location %>">
-      </div>
-    </div>
+  <div id="map" class="col-6 offset-3 my-4 border border-dark"
+    style="height: 300px; width: 400px; border-radius: 10px;"
+    data-location="<%= listing.location %>">
   </div>
 
   <!-- Edit/Delete Buttons -->
   <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
-        <div class="row">
-      <div class="col-md-6 offset-md-3 d-flex gap-2 mb-4">
-        <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit</a>
+    <div class="col-6 offset-3">
+      <div class="edit-delete-btns">
+        <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger btn-sm edit-btn">Edit</a>
         <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" class="d-inline">
-          <button class="btn btn-dark">Delete</button>
+          <button class="btn btn-dark btn-sm">Delete</button>
         </form>
       </div>
     </div>
   <% } %>
 
   <!-- Review Form -->
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <hr>
-      <h4>Leave a Review</h4>
-      <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
-        <div class="mb-3">
-          <label for="rating" class="form-label">Rating</label>
-          <fieldset class="starability-slot">
-            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-            <label for="first-rate1" title="Terrible">1 star</label>
-            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-            <label for="first-rate2" title="Not good">2 stars</label>
-            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-            <label for="first-rate3" title="Average">3 stars</label>
-            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-            <label for="first-rate4" title="Very good">4 stars</label>
-            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-            <label for="first-rate5" title="Amazing">5 stars</label>
-          </fieldset>
+  <div class="col-8 offset-3 mb-3">
+    <hr>
+    <h4>Leave a Review</h4>
+    <form action="/listings/<%= listing._id %>/reviews" method="post" novalidate class="needs-validation">
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <fieldset class="starability-slot">
+          <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="comment" class="form-label">Comments</label>
+        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+        <div class="invalid-feedback">
+          Please add some comments for review
         </div>
-        <div class="mb-3 mt-3">
-          <label for="comment" class="form-label">Comments</label>
-          <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
-          <div class="invalid-feedback">
-            Please add some comments for review
-          </div>
-        </div>
-        <button class="btn btn-outline-dark">Submit</button>
-      </form>
-      <hr>
-    </div>
-  </div>
+      </div>
+      <button class="btn btn-outline-dark">Submit</button>
+    </form>
+    <hr>
 
-  <!-- Reviews -->
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <p><b>All Reviews</b></p>
+    <!-- Reviews -->
+    <p><b>All Reviews</b></p>
+    <div class="row">
       <% for(review of listing.reviews){ %>
-        <div class="card mb-3">
+        <div class="card col-5 ms-3 mb-3">
           <div class="card-body">
             <h5 class="card-title">@<%= review.author.username %></h5>
             <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
             <p class="card-text"><%= review.comment %></p>
-            <form method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+            <form class="mb-3" method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
               <button class="btn btn-sm btn-dark">Delete</button>
             </form>
           </div>
@@ -115,11 +95,11 @@
   </div>
 </div>
 
-<!-- Leaflet CSS -->
+<!-- Leaflet CSS (no integrity) -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-<!-- Leaflet JS -->
+<!-- Leaflet JS (no integrity) -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <!-- Map script -->
-<script src="/js/map.js"></script>
+<script src="/js/map.js"></script>  
