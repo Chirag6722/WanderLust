@@ -12,10 +12,18 @@ Wanderlust is a full-stack Airbnb-like web application where users can post rent
 
 ## Screenshots
 
- ![Homepage](assets/homepage.png)
- ![Listing Page](assets/listing-page.png)
- ![Map Integration](assets/map.png)
- ![Reviews](assets/reviews.png)
+ ### Homepage
+![Homepage](assets/homepage.png)
+
+
+### Listing Page
+![Listing Page](assets/listing-page.png)
+
+### Map Integration
+![Map Integration](assets/map.png)
+
+### Reviews Section
+![Reviews](assets/reviews.png)
 
 ---
 
