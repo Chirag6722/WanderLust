@@ -1,6 +1,6 @@
 # WanderLust
 
-Wanderlust is a full-stack Airbnb-like web application where users can post rental listings, explore places to stay, leave reviews, and manage listings—all with integrated maps, authentication, and a beautiful UI built using Bootstrap and Leaflet.
+**Wanderlust** is a full-stack travel stay web application where users can discover unique places to stay, list their own properties, explore locations with interactive maps, leave reviews, and manage listings — all within a seamless, responsive interface. It features integrated authentication, dynamic map views using Leaflet, and a clean, modern UI built with Bootstrap.
 
 ---
 
